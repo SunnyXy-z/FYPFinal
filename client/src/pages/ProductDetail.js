@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaCube } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../context/cart";
 import "../pages/ProductDetails.css";
@@ -107,14 +106,15 @@ const ProductDetails = () => {
             <button
               className="add-cart-btn"
               onClick={() => {
-                const newCart = [...cart, product];
+                let newCart = [...cart, product];
 
-                if (include3DTool) {
+                // Check if 3D tool customization is selected and not already in the cart
+                if (include3DTool && !cart.find(item => item?.id === "3d-tool-global")) {
                   const customizationItem = {
-                    id: `3d-tool-${product._id}`,
-                    name: `3D Tool Customization for ${product.name}`,
+                    id: "3d-tool-global",
+                    name: `3D Tool Customization`,
                     price: 20,
-                    image: <FaCube />, // optional - change path if needed
+                    icon: "🛠️",
                     quantity: 1,
                     isCustomization: true,
                   };
@@ -137,14 +137,21 @@ const ProductDetails = () => {
             </button>
           </div>
           <div style={{ marginTop: "1rem" }}>
-            <label>
+            {/* <label>
               <input
                 type="checkbox"
                 checked={include3DTool}
                 onChange={() => setInclude3DTool(!include3DTool)}
               />
               {" "}Use 3D Tool Customization (+ $20)
-            </label>
+            </label> */}
+            <button
+              className="open-3d-decorator-btn"
+              style={{ marginTop: "1rem" }}
+              onClick={() => navigate('/layoutDecorate', { state: { layoutName: product.name } })}
+            >
+              Open 3D Decorator Tool
+            </button>
           </div>
 
           <div className="description-box">

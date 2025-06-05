@@ -90,10 +90,12 @@ const CartPage = () => {
 
       if (data && data.success) {
         alert("Payment Successful");
-        window.open('https://canvas-done.vercel.app/', '_blank');
+        // window.open('https://3-d-canvas-x.vercel.app/', '_blank');
+        setDownloadLinks(links);
       } else {
         alert("Payment Successful");
-        window.open('https://canvas-done.vercel.app/', '_blank');
+        // window.open('https://3-d-canvas-x.vercel.app/', '_blank');
+        setDownloadLinks(links);
       }
 
       setCart([]);
@@ -109,9 +111,9 @@ const CartPage = () => {
           url: item.modelURL,
         }));
 
-      setDownloadLinks(links);
 
-      alert("There was a problem processing your payment, but you can still access downloads.");
+
+      alert("There was a problem processing your payment, downloads cann not be accessed.");
     }
   };
   const totalPrice = () => {
